@@ -1,7 +1,5 @@
-# SPRING_WORKSHOP
+# SPRING_HIBERNATE_WORKSHOP
 
-It is my first experience with Spring.
+A project that manages books using Spring and Hibernate.
 
-There seems to happen a lot of magic around :)
-
-Can't wait for more!
+Both powerfull and fascinating technologies.
