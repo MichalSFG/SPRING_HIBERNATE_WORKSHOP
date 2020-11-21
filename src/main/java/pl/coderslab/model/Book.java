@@ -1,9 +1,17 @@
 package pl.coderslab.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String isbn;
     private String title;
+    @Size(min = 2, max = 30)
     private String author;
     private String publisher;
     private String type;

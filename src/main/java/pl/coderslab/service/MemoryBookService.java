@@ -5,9 +5,10 @@ import pl.coderslab.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class MemoryBookService {
+public class MemoryBookService implements BookService {
     private List<Book> books;
     private static Long nextId = 4L;
 
@@ -23,6 +24,26 @@ public class MemoryBookService {
 
     public List<Book> getBooks() {
         return books;
+    }
+
+    @Override
+    public Optional<Book> get(Long id) {
+        return Optional.of(getBookById(id));
+    }
+
+    @Override
+    public void add(Book book) {
+        addBook(book);
+    }
+
+    @Override
+    public void delete(Long id) {
+        deleteBook(id);
+    }
+
+    @Override
+    public void update(Book book) {
+        updateBook(book);
     }
 
     public Book getBookById(Long id) {

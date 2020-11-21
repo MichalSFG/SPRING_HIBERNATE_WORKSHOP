@@ -2,53 +2,53 @@ package pl.coderslab.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Book;
-import pl.coderslab.service.MemoryBookService;
+import pl.coderslab.service.BookService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
 
-    private MemoryBookService bookService;
+    private final BookService service;
 
     private final Logger logger = LoggerFactory.getLogger(BookController.class);
 
-    @Autowired
-    public BookController(MemoryBookService bookService) {
-        this.bookService = bookService;
+    public BookController(BookService service) {
+        this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<Book> getAllBooks() {
         logger.info("getAllBooks");
-        return bookService.getBooks();
+        return service.getBooks();
     }
 
     @GetMapping("/{id}")
     public Book bookById(@PathVariable Long id) {
         logger.info("bookById");
-        return bookService.getBookById(id);
+        Optional<Book> book = service.get(id);
+        return book.orElse(null);
     }
 
     @PostMapping()
     public void addBookToLibrary(@RequestBody Book book) {
-        bookService.addBook(book);
+        service.add(book);
         logger.info("addBookToLibrary");
     }
 
     @DeleteMapping("/{id}")
     public void deleteBookFromLibrary(@PathVariable Long id) {
-        bookService.deleteBook(id);
+        service.delete(id);
         logger.info("deleteBookFromLibrary");
     }
 
     @PutMapping()
     public void updateBookInLibrary(@RequestBody Book book) {
-        bookService.updateBook(book);
+        service.update(book);
         logger.info("updateBookInLibrary");
     }
 
